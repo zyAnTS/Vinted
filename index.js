@@ -15,17 +15,17 @@ cloudinary.config({
 const userRoutes = require("./routes/user");
 const offerRoutes = require("./routes/offer");
 const offersRoutes = require("./routes/offers");
-const isAuthenticated = require("./middlewares/isAuthenticated");
 
 app.use(express.json());
 app.use(cors());
+
+app.get("/", (req, res) => {
+  return res.json({ message: "Welcome to Vinted" });
+});
+
 app.use(userRoutes);
 app.use(offerRoutes);
 app.use(offersRoutes);
-
-app.get("/", isAuthenticated, (req, res) => {
-  return res.json({ message: "Welcome to Vinted" });
-});
 
 app.all("*", (req, res) => {
   return res.status(404).json("404 : Page not found");
